@@ -1,0 +1,69 @@
+<!-- templates/books/book_detail.html -->
+{% extends '_base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ book.title }}{% endblock title %}
+
+{% block content %}
+    <div class="product-detail">
+        {% load thumbnail %}
+        <img style="
+                width: 400px;
+                height: 450px;
+                display: block;
+                padding: 4px;
+                margin-bottom: 20px;
+                margin-right: 40px;
+                line-height: 1.42857143;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                -webkit-transition: border .2s ease-in-out;
+                -o-transition: border .2s ease-in-out;
+                transition: border .2s ease-in-out;"   
+        src="
+            {% if book.cover %}
+                {% thumbnail book.cover 300x0 quality=85  %}
+            {% else %}
+                {% static 'images/no_image.png' %}
+            {% endif %}">
+        <h1>{{ book.title }}</h1>
+        <h2>
+            <a href="{{ book.category.get_absolute_url }}">
+                {{ book.category }}
+            </a>
+        </h2>
+
+        <p class="price"> {{ book.price }}₽ </p>
+
+        {% if book.seller.is_superuser %}
+        <form action="{% url 'cart:cart_add' book.id %}" method="post">
+            {% blocktrans %}
+            {{ form }}
+            {% endblocktrans %}
+            {% csrf_token %}
+            <input type="submit" value="Добавить в корзину" style="margin-left:20px;">
+        </form>
+        {% else %}
+            <p> 
+                Связаться с 📲
+                <b><a href="{% url 'account_dashboard' book.seller.slug %}">{{book.seller.username}}</a></b>
+            </p>
+        {% endif %}
+        <div style="height:20px;"></div>
+        {{ book.description|linebreaks }}
+
+        <h3><a href="{% url 'review_new' book.id %}"> + Отзывы</a></h3>
+        <ul>
+            {% for review in book.reviews.all %}
+                <li>
+                    <a href="{% url 'review_update' review.id %}">{{ review.author }}</a> - {{ review.review }}
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+    </div>
+{% endblock content %}
+
+

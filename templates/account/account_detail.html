@@ -1,0 +1,69 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title%} Профиль {% endblock title %}
+
+{% block content %}
+    <div>
+        <h1> Профиль {{user.username}} </h1>
+        <img src="
+                {% if user.image %}
+                    {{ user.image.url }}
+                {% else %}
+                    {% static 'images/no_image.png' %}
+                {% endif %}">
+    </div>
+
+    <div id="sidebar">
+        <h3> Опции </h3>
+        <ul>
+            <li>
+                <a href="{% url 'account_update' user.slug %}"> Редактировать профиль </a>
+            </li>
+            <li>
+                <a href="{% url 'book_new' %}"> Продать книгу </a>
+            </li>
+            <li>
+                <a href="{% url 'account_change_password' %}"> Изменить пароль </a>
+            </li>
+            <li>
+                <a href="{% url 'account_delete' user.slug %}"> Удалить профиль </a>
+            </li>
+            <li>
+                <a href="{% url 'account_logout' %}"> Выйти </a>
+            </li>
+    
+            {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div id="main" class="product-list"><br>
+        <h1>Книги на продажу</h1>
+
+        {% for book in book_list %}
+            <div class="item">
+                <a href="{{ book.get_absolute_url }}">
+                    <img src="{% if book.cover %}{{ book.cover.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}">
+                </a>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                <br>
+                {{ book.price }}₽
+
+                {% if book.available %}
+                    на продажу
+                {% else %}
+                    на складе
+                {% endif %}
+                <br>
+                <a href="{% url 'book_update' book.pk %}"> Редактировать </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    
+    
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1> Обновить или удалить книгу </h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-success ml-2" type="submit">Сохранить</button> |  
+        <a class="btn btn-danger" href="{% url 'book_delete' book.pk %}">Удалить</a>
+    </form>
+    <br>
+{% endblock content %}

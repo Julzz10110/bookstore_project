@@ -1,0 +1,16 @@
+<!-- templates/books/search_results.html -->
+{% extends '_base.html' %}
+
+{% block title %}Поиск книги{% endblock title %}
+
+{% block content %}
+<h1>Результаты поиска</h1>
+    {% for book in book_list %}
+        <div>
+            <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
+            <p>Автор: {{ book.author }} <br>
+            Цена: {{ book.price }}₽</p>
+            <br>
+        </div>
+    {% endfor %}
+{% endblock content %}

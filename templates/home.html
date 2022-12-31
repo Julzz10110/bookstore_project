@@ -1,0 +1,96 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title%} Профиль {% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div>
+        <h1>Добро пожаловать, {{ user.email }}! </h1>
+        <img src="
+                {% if user.image %}
+                    {{ user.image.url }}
+                {% else %}
+                    {% static 'images/no_image.png' %}
+                {% endif %}">
+    </div>
+
+    <div id="sidebar">
+        <h2> Опции </h2>
+        <ul>
+            <li>
+                <a {% if not user.phone %} style="color:red" {% endif %} href="{% url 'account_update' user.slug %}"> Редактировать профиль </a>
+            </li>
+            <li>
+                <a href="{% url 'book_new' %}"> Продать книгу </a>
+            </li>
+            <li>
+                <a href="{% url 'account_change_password' %}"> Изменить пароль </a>
+            </li>
+            <li>
+                <a href="{% url 'account_delete' user.slug %}"> Удалить профиль </a>
+            </li>
+            <li>
+                <a href="{% url 'account_logout' %}"> Выйти </a>
+            </li>
+    
+            {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div id="main" class="product-list"><br>
+        <h2>Книги на продажу</h2>
+        {% if books_list %}
+            {% if not user.phone %}
+                <p style="color:red;"> 
+                    
+Вы добавили книгу в продажу, поэтому добавьте свою контактную информацию через опцию «Редактировать профиль»! <br>
+                    📌 Требуется Телефон
+                </p>
+            {% endif %}
+        {% endif %}
+
+        {% for book in books_list %}
+            <div class="item">
+                {% load thumbnail %}
+                    <a href="{{ book.get_absolute_url }}">
+                        <img style="
+                                width: 100%;
+                                height: 240px;
+                                display: block;
+                                padding: 4px;
+                                margin-bottom: 20px;
+                                line-height: 1.42857143;
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                                border-radius: 4px;
+                                -webkit-transition: border .2s ease-in-out;
+                                -o-transition: border .2s ease-in-out;
+                                transition: border .2s ease-in-out;"  
+                            src="{% if book.cover %}{% thumbnail book.cover 300x0 quality=85  %}{% else %}{% static 'images/no_image.png' %}{% endif %}">
+                    </a>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                <br>
+                {{ book.price }}₽
+
+                {% if book.available %}
+                    на продажу
+                {% else %}
+                    на складе
+                {% endif %}
+                <br>
+                <a href="{% url 'book_update' book.pk %}"> Редактировать </a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h1>Вы не авторизованы</h1>
+    <p><a href="{% url 'account_login' %}">Войти</a> |
+    <a href="{% url 'account_signup' %}">Зарегистрироваться</a></p>
+{% endif %}
+
+{% endblock content %}

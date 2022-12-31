@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title%} Информация о профиле {% endblock title %}
+
+{% block content %}
+    <div>
+        <h1>Профиль {{seller.username}}</h1>
+        <img src="
+                {% if user.image %}
+                    {{ user.image.url }}
+                {% else %}
+                    {% static 'images/no_image.png' %}
+                {% endif %}">
+        <p></p>
+    </div>
+
+    <div>
+        <h2> Контактная информация </h2>
+        <b>📌Имя пользователя:</b> {{seller.username}} <br>
+        <b>📌Телефон:</b> {{seller.phone}} <br>
+        <b>📌<a href="{{seller.telegram}}"> Telegram </a> </b><br>
+        <b>📌E-mail:</b> {{seller.email}} <br>
+    </p>
+    </div>
+
+    <div id="main" class="product-list"><br>
+        <h2>Книги на продажу</h2>
+
+        {% for book in book_list %}
+            <div class="item">
+                <a href="{{ book.get_absolute_url }}">
+                    <img src="{% if book.cover %}{{ book.cover.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}">
+                </a>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                <br>
+                {{ book.price }}₽
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock content %}

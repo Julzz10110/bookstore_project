@@ -1,14 +1,14 @@
 import os
 from pathlib import Path
 from environs import Env
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 env = Env()
 env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "15+n96&r%)n47of%\6f(5#mjh2y)umka#n^1+=qp+3larhra=vn"
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG', default=True)
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'side',
     
     'crispy_forms',
+    'crispy_bootstrap4',
     'allauth',
     'allauth.account',
     'easy_thumbnails',
@@ -53,9 +54,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
+    'reviews.middleware.CensorMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+#TEST_RUNNER = 'django_selenium.selenium_runner.SeleniumTestRunner'
+
+#CELERY_BROKER_URL = 'amqp://myapp_user:password@localhost/myvhost'
+#CELERY_RESULT_BACKEND = 'rpc://'
+
 
 TEMPLATES = [
     {
@@ -77,12 +87,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'django_bookstore',  
+        'USER': 'root',  
+        'PASSWORD': '*************',  
+        'HOST': '127.0.0.1',  
+        'PORT': '3306',  
+        'OPTIONS': {  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+        }  
+    }  
+}  
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,7 +121,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -127,7 +144,7 @@ STATICFILES_FINDERS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
@@ -141,7 +158,14 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#CELERY_SEND_TASK_ERROR_EMAILS = True
+
+EMAIL_HOST = "app.debugmail.io"
+EMAIL_HOST_USER = "****"
+EMAIL_HOST_PASSWORD = "****"
+EMAIL_PORT = "25"
+DEFAULT_FROM_EMAIL = 'sample@sample.com'
+
 
 ACCOUNT_USERNAME_REQUIRED = True
 
@@ -152,8 +176,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
 
-DEFAULT_FROM_EMAIL = 'admin@example.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField' 
 
 CART_SESSION_ID = 'cart'
+
 

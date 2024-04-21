@@ -6,8 +6,8 @@
     <div>
         <h1>Профиль {{seller.username}}</h1>
         <img src="
-                {% if user.image %}
-                    {{ user.image.url }}
+                {% if seller.image %}
+                    {{ seller.image.url }}
                 {% else %}
                     {% static 'images/no_image.png' %}
                 {% endif %}">

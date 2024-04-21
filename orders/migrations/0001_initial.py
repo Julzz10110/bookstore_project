@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('books', '0002_auto_20210825_1458'),
+        ('books', '0002_auto_20240118_1523'),
     ]
 
     operations = [
@@ -20,14 +20,13 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=254)),
                 ('address', models.CharField(max_length=255)),
                 ('postal_code', models.CharField(max_length=20)),
-                ('city', models.CharField(max_length=100)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('paid', models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name': 'Order',
-                'verbose_name_plural': 'Orders',
+                'verbose_name': 'Заказ',
+                'verbose_name_plural': 'Заказы',
                 'ordering': ('-created',),
             },
         ),

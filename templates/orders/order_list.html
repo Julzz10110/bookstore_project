@@ -1,0 +1,40 @@
+{% extends "_base.html" %}
+{% block title %} История заказов {% endblock %}
+
+{% block content %}
+{% load orders_extra %}
+<h1>История заказов</h1>
+<div>
+    {% if user_orders %}
+    {% for order in user_orders %}
+        <br> <b> Заказ от {{ order.created }} (мск) </b>
+        <br> Фамилия: {{ order.last_name }}
+        <br> Имя: {{ order.first_name }}
+        <br> Адрес: {{ order.address }}
+        <br> Почтовый индекс: {{ order.postal_code }}
+        {% with user_order_items|list_item:forloop.counter as user_order_items_map %}
+        <br> Товары:
+            {% for item in user_order_items_map %}
+            <li>
+                {{ item.quantity }}x {{ item.book.title }}
+                <span>{{ item.price }}₽</span>
+            </li>
+            {% endfor %}
+            {% endwith %}
+        Общая стоимость: {{ order.get_total_cost }}₽
+        {% if order.paid %}
+            <br> Статус: оплачен
+        {% else %}
+            <br> Статус: ожидает оплаты
+        {% endif %}
+        <br>
+            {% endfor %}
+            {% else %}
+            <br> Вы не делали заказ в нашем магазине.
+        {% endif %}
+
+
+</div>
+
+{% endblock %}
+

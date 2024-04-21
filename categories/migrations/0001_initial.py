@@ -1,5 +1,5 @@
 from django.db import migrations, models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Migration(migrations.Migration):
@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=200, unique=True)),
             ],
             options={
-                'verbose_name':'Category',
-                'verbose_name_plural':'Categories',
+                'verbose_name':'Жанр',
+                'verbose_name_plural':'Жанры',
                 'ordering': ('name',),
             },
         ),

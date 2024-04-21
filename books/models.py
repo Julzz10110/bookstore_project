@@ -15,13 +15,14 @@ class Book(models.Model):
 
     category = models.ForeignKey(Category,
                                  related_name='books',
-                                 on_delete=models.CASCADE)
+                                 on_delete=models.CASCADE,
+                                 verbose_name="Жанр")
 
-    title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    cover = models.ImageField(upload_to='covers/', blank=True)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=255, verbose_name="Название")
+    author = models.CharField(max_length=255, verbose_name="Автор")
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Цена")
+    cover = models.ImageField(upload_to='covers/', blank=True, verbose_name="Обложка")
+    description = models.TextField(blank=True, verbose_name="Описание")
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -39,8 +40,8 @@ class Book(models.Model):
 
     class Meta:
         ordering = ('title',)
-        verbose_name = 'Book'
-        verbose_name_plural = 'Books'
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
         permissions = [
-            ('special_status', 'Can read all books'),
+            ('special_status', '???'),
         ]

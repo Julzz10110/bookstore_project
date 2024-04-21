@@ -4,11 +4,11 @@ from books.models import Book
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    address = models.CharField(max_length=255)
-    postal_code = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=50, verbose_name="Фамилия*")
+    first_name = models.CharField(max_length=50, verbose_name="Имя*")
+    email = models.EmailField(verbose_name="E-mail")
+    address = models.CharField(max_length=255, verbose_name="Адрес*")
+    postal_code = models.CharField(max_length=20, verbose_name="Почтовый индекс*")
     city = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -16,11 +16,11 @@ class Order(models.Model):
 
     class Meta:
         ordering = ('-created',)
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Order {self.id}'
+        return f'Заказ {self.id}'
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())

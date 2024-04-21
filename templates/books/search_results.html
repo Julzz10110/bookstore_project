@@ -5,6 +5,7 @@
 
 {% block content %}
 <h1>Результаты поиска</h1>
+    {% if book_list %}
     {% for book in book_list %}
         <div>
             <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
@@ -13,4 +14,9 @@
             <br>
         </div>
     {% endfor %}
+    {% else %}
+        <div>
+            <p>По указанному поисковому запросу книги не найдены.</p>
+        </div>
+    {% endif %}
 {% endblock content %}

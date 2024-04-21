@@ -30,10 +30,10 @@ class Migration(migrations.Migration):
                 ('seller', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name': 'Book',
-                'verbose_name_plural': 'Books',
+                'verbose_name': 'Книга',
+                'verbose_name_plural': 'Книги',
                 'ordering': ('title',),
-                'permissions': [('special_status', 'Can read all books')],
+                'permissions': [('special_status', '???')],
             },
         ),
     ]

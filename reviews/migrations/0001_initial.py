@@ -23,8 +23,8 @@ class Migration(migrations.Migration):
                 ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reviews', to='books.book')),
             ],
             options={
-                'verbose_name': 'Review',
-                'verbose_name_plural': 'Reviews',
+                'verbose_name': 'Отзыв',
+                'verbose_name_plural': 'Отзывы',
             },
         ),
     ]

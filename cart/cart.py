@@ -32,7 +32,6 @@ class Cart(object):
 
     def __iter__(self):
         book_ids = self.cart.keys()
-        # get the book objects and add them to the cart
         books = Book.objects.filter(id__in=book_ids)
         cart = self.cart.copy()
         for book in books:
@@ -50,6 +49,5 @@ class Cart(object):
                    in self.cart.values())
 
     def clear(self):
-        # remove cart from session
         del self.session[settings.CART_SESSION_ID]
         self.save()

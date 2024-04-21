@@ -12,13 +12,13 @@ class OrderItemInline(admin.TabularInline):
 
 def order_detail(obj):
     url = reverse('orders:admin_order_detail', args=[obj.id])
-    return mark_safe(f'<a href="{url}">View</a>')
+    return mark_safe(f'<a href="{url}">Детали</a>')
 
 
 def order_pdf(obj):
     url = reverse('orders:admin_order_pdf', args=[obj.id])
     return mark_safe(f'<a href="{url}">PDF</a>')
-order_pdf.short_description = 'Invoice'
+order_pdf.short_description = 'Счет'
 
 
 @admin.register(Order)

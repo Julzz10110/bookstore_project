@@ -6,7 +6,16 @@
     <h1>{{ user.username }}</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form|crispy }}
+
+        <div id="div_id_phone" class="form-group"> <label for="id_phone" class="">
+            Мобильный телефон
+        </label> <div> <input type="text" name="phone" maxlength="255" class="textinput form-control" id="id_phone"> </div> </div> <div id="div_id_telegram" class="form-group"> <label for="id_telegram" class="">
+            Telegram
+        </label> <div> <input type="url" name="telegram" maxlength="200" class="urlinput form-control" id="id_telegram"> </div> </div> <div id="div_id_image" class="form-group"> <label for="id_image" class="">
+            Фото профиля
+        </label> <div> <input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file" id="id_image"> </div> </div>
+
+
         <button class="btn btn-success ml-2" type="submit">Сохранить</button>
     </form>
     <br>

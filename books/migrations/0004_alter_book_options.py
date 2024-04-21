@@ -4,12 +4,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('books', '0003_auto_20210906_1548'),
+        ('books', '0002_auto_20240118_1523'),
     ]
 
     operations = [
         migrations.AlterModelOptions(
             name='book',
-            options={'ordering': ('title',), 'permissions': [('special_status', 'Can read all books')], 'verbose_name': 'Book', 'verbose_name_plural': 'Books'},
+            options={'ordering': ('title',), 'permissions': [('special_status', '???')], 'verbose_name': 'Книга', 'verbose_name_plural': 'Книги'},
         ),
     ]

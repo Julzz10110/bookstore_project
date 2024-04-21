@@ -4,16 +4,16 @@
   <p>
     № {{ order.id }}</br>
     <span class="secondary">
-      {{ order.created|date:"M d, Y" }}
+      {{ order.created|date:"d.m.Y" }}
     </span>
   </p>
 
   <h3>Счет</h3>
   <p>
-    {{ order.first_name }} {{ order.last_name }}<br>
+    {{ order.last_name }} {{ order.first_name }}<br>
     {{ order.email }}<br>
     {{ order.address }}<br>
-    {{ order.postal_code }}, {{ order.city }}
+    {{ order.postal_code }}
   </p>
 
   <h3>на покупку</h3>

@@ -6,7 +6,24 @@
     <h1>Продайте свою книгу в ЛЕЙТМОТИВЕ</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
         {{ form|crispy }}
+        <!--
+        <div id="div_id_category" class="form-group"> <label for="id_category" class=" requiredField">
+            Жанр<span class="asteriskField">*</span> </label> <div> <select name="category" class="select form-control" required id="id_category"> <option value="" selected>---------</option>
+
+        </select> </div> </div> <div id="div_id_title" class="form-group"> <label for="id_title" class=" requiredField">
+            Название<span class="asteriskField">*</span> </label> <div> <input type="text" name="title" maxlength="255" class="textinput form-control" required id="id_title"> </div> </div> <div id="div_id_author" class="form-group"> <label for="id_author" class=" requiredField">
+            Автор<span class="asteriskField">*</span> </label> <div> <input type="text" name="author" maxlength="255" class="textinput form-control" required id="id_author"> </div> </div> <div id="div_id_price" class="form-group"> <label for="id_price" class=" requiredField">
+            Цена<span class="asteriskField">*</span> </label> <div> <input type="number" name="price" step="0.01" class="numberinput form-control" required id="id_price"> </div> </div> <div id="div_id_cover" class="form-group"> <label for="id_cover" class="">
+            Обложка
+        </label> <div> <input type="file" name="cover" accept="image/*" class="clearablefileinput form-control-file" id="id_cover"> </div> </div> <div id="div_id_description" class="form-group"> <label for="id_description" class="">
+            Описание
+        </label> <div> <textarea name="description" cols="40" rows="10" class="textarea form-control" id="id_description">
+</textarea> </div> </div>
+--->
+
+
         <button class="btn btn-success ml-2" type="submit">Сохранить</button>
     </form>
     <br>

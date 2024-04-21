@@ -17,7 +17,7 @@ class Review(models.Model):
             on_delete=models.CASCADE,
             related_name='reviews',
         )
-    review = models.CharField(max_length=255)
+    review = models.CharField(max_length=255, verbose_name="Отзыв")
     author = models.ForeignKey(
             get_user_model(),
             on_delete=models.CASCADE,
@@ -30,5 +30,5 @@ class Review(models.Model):
         return reverse('review_update', args=[str(self.id)])
 
     class Meta:
-        verbose_name = 'Review'
-        verbose_name_plural = 'Reviews'
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
